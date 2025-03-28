@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABC Colleges Library Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 900px;
+            margin: auto;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+            background: #f9f9f9;
+        }
+        .card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ABC Colleges</h1>
+    <h2>Library Users</h2>
+    <div class="container" id="library-users"></div>
+    
+    <script>
+        const usersXML = `
+        <users>
+            <user>
+                <name>Ubs Kersey Javier</name>
+                <course>BSIT</course>
+                <year>3</year>
+                <section>3B-G2</section>
+                <advisor>Engr. Noemi Reyes</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/men/1.jpg</photo>
+            </user>
+            <user>
+                <name>Johann Smith</name>
+                <course>BSCS</course>
+                <year>2</year>
+                <section>2A-G1</section>
+                <advisor>Dr. Carla Santos</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/men/2.jpg</photo>
+            </user>
+            <user>
+                <name>Rexie Lee</name>
+                <course>BSBA</course>
+                <year>4</year>
+                <section>4C-G3</section>
+                <advisor>Prof. Daniel Cruz</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/women/3.jpg</photo>
+            </user>
+            <user>
+                <name>Samantha Garcia</name>
+                <course>BSN</course>
+                <year>1</year>
+                <section>1D-G4</section>
+                <advisor>Ms. Angela Torres</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/women/4.jpg</photo>
+            </user>
+            <user>
+                <name>Michael Johnson</name>
+                <course>BSA</course>
+                <year>3</year>
+                <section>3E-G2</section>
+                <advisor>Mr. Richard Tan</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/men/5.jpg</photo>
+            </user>
+            <user>
+                <name>Emily Davis</name>
+                <course>BSHM</course>
+                <year>2</year>
+                <section>2F-G3</section>
+                <advisor>Ms. Jessica Lee</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/women/6.jpg</photo>
+            </user>
+            <user>
+                <name>David Wilson</name>
+                <course>BSIT</course>
+                <year>4</year>
+                <section>4G-G1</section>
+                <advisor>Engr. Anthony Perez</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/men/7.jpg</photo>
+            </user>
+            <user>
+                <name>Isabella Martinez</name>
+                <course>BSPSY</course>
+                <year>3</year>
+                <section>3H-G2</section>
+                <advisor>Dr. Sofia Ramos</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/women/8.jpg</photo>
+            </user>
+            <user>
+                <name>Christopher Brown</name>
+                <course>BSME</course>
+                <year>2</year>
+                <section>2I-G1</section>
+                <advisor>Engr. Victor Reyes</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/men/9.jpg</photo>
+            </user>
+            <user>
+                <name>Olivia Thompson</name>
+                <course>BSBA</course>
+                <year>1</year>
+                <section>1J-G3</section>
+                <advisor>Ms. Karen Mendoza</advisor>
+                <schoolYear>2025-2026</schoolYear>
+                <photo>https://randomuser.me/api/portraits/women/10.jpg</photo>
+            </user>
+        </users>`;
+
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(usersXML, "text/xml");
+        const users = xmlDoc.getElementsByTagName("user");
+
+        for (let i = 0; i < users.length; i++) {
+            const user = users[i];
+            const userCard = document.createElement("div");
+            userCard.classList.add("card");
+            userCard.innerHTML = `
+                <div class="card-header">
+                    <img src="${user.getElementsByTagName("photo")[0].textContent}" alt="User Photo">
+                    <strong>${user.getElementsByTagName("name")[0].textContent}</strong>
+                </div>
+                <p><strong>Course:</strong> ${user.getElementsByTagName("course")[0].textContent}</p>
+                <p><strong>Year Level / Section:</strong> ${user.getElementsByTagName("year")[0].textContent} ${user.getElementsByTagName("section")[0].textContent}</p>
+                <p><strong>Adviser:</strong> ${user.getElementsByTagName("advisor")[0].textContent}</p>
+                <p><strong>School Year:</strong> ${user.getElementsByTagName("schoolYear")[0].textContent}</p>
+            `;
+            document.getElementById("library-users").appendChild(userCard);
+        }
+    </script>
+</body>
+</html>
